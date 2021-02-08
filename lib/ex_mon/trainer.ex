@@ -27,6 +27,14 @@ defmodule ExMon.Trainer do
     |> put_pass_hash()
   end
 
+  def changeset(trainer, params) do
+    trainer
+    |> cast(params, @require_params)
+    |> validate_required(@require_params)
+    |> validate_length(:password, min: 6)
+    |> put_pass_hash()
+  end
+
   defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
     change(changeset, Argon2.add_hash(password))
   end
