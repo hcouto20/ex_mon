@@ -15,6 +15,4 @@ defmodule ExMon.Trainer.Get do
       trainer -> {:ok, trainer}
     end
   end
-
-
 end
