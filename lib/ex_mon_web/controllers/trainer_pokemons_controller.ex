@@ -1,8 +1,7 @@
 defmodule ExMonWeb.TrainerPokemonsController do
   use ExMonWeb, :controller
-  alias ExMon
 
-  action_fallback(ExMonWeb.FallbackController)
+  action_fallback ExMonWeb.FallbackController
 
   def create(conn, params) do
     params
@@ -20,6 +19,12 @@ defmodule ExMonWeb.TrainerPokemonsController do
     id
     |> ExMon.fetch_trainer_pokemon()
     |> handle_response(conn, "show.json", :ok)
+  end
+
+  def update(conn, params) do
+    params
+    |> ExMon.update_trainer_pokemon()
+    |> handle_response(conn, "update.json", :ok)
   end
 
   defp handle_delete({:ok, _pokemon}, conn) do
