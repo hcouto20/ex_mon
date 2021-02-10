@@ -1,5 +1,6 @@
 defmodule ExMonWeb.TrainerPokemonsController do
   use ExMonWeb, :controller
+  alias ExMon
 
   action_fallback(ExMonWeb.FallbackController)
 
