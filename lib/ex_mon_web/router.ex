@@ -11,15 +11,15 @@ defmodule ExMonWeb.Router do
 
   scope "/api", ExMonWeb do
     pipe_through(:api)
+
     post("/trainers", TrainersController, :create)
-
     post("/trainers/signin", TrainersController, :sign_in)
-
     get("/pokemons/:name", PokemonsController, :show)
   end
 
   scope "/api", ExMonWeb do
-    pipe_through(:api, :auth)
+    pipe_through([:api, :auth])
+
     resources("/trainers", TrainersController, only: [:show, :delete, :update])
 
     resources("/trainer_pokemons", TrainerPokemonsController,
