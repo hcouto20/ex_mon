@@ -1,7 +1,7 @@
 defmodule ExMonWeb.FallbackController do
   use ExMonWeb, :controller
 
-  def call(conn, {:error, unauthorized}) do
+  def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:unauthorized)
     |> put_view(ExMonWeb.ErrorView)
@@ -14,5 +14,4 @@ defmodule ExMonWeb.FallbackController do
     |> put_view(ExMonWeb.ErrorView)
     |> render("400.json", result: result)
   end
-
 end
