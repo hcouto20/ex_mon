@@ -2,16 +2,19 @@ defmodule ExMon.Trainer do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias ExMon.Trainer.Pokemon
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
 
   schema "trainers" do
     field :name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many(:pokemon, Pokemon)
     timestamps()
   end
 
-  @require_params [:name, :password]
+  @required_params [:name, :password]
 
   def build(params) do
     params
@@ -24,8 +27,8 @@ defmodule ExMon.Trainer do
 
   defp create_changeset(module_or_trainer, params) do
     module_or_trainer
-    |> cast(params, @require_params)
-    |> validate_required(@require_params)
+    |> cast(params, @required_params)
+    |> validate_required(@required_params)
     |> validate_length(:password, min: 6)
     |> put_pass_hash()
   end
@@ -35,5 +38,4 @@ defmodule ExMon.Trainer do
   end
 
   defp put_pass_hash(changeset), do: changeset
-
 end
